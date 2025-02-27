@@ -1,0 +1,98 @@
+---
+title: "MWF_HW1"
+author: "Savannah McNair"
+date: "2025-02-27"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+necessary packages
+```{r}
+require(dplyr)
+require(tidyr)
+```
+
+
+# 1. Set-up of Git and GitHub (20%)
+
+install Git on your computer
+- I already had Git downloaded to my computer! Check!
+
+make GitHub account (get the free pro version with an educational account)
+- I already have a GitHub account - @savmcnair . Check!
+
+set-up Git in Rstudio (if you get stuck you can try using GitHub Desktop)
+- I already have Git setup with RStudio, as I use Git and R for work. I noted this in the discussion forum, but I use GitHub desktop to sync my local computer, R, and GitHub repos. Check!
+
+#2. Do online GitHub course (20%)
+https://github.com/skills/introduction-to-github
+
+- Created a the skills intro repo and cloned to my local comp (link to repo here: https://github.com/savmcnair/skills-introduction-to-github/tree/main)
+- Created a new branch, sav-newbranch
+- Added a PDF to the repo, push
+- Created pull request with new commit
+- Merged pull request (main and sav-newbranch)
+- Check!
+
+#3. Do your first Git project (total of 60%)
+create a new project and set-up the project structure (folder, README, etc.) (5%)
+- Created a new repo (link to repo here: https://github.com/savmcnair/RStudio-MWF-repo)
+- Has a README and is in a folder linked to my desktop
+
+download two dataset about COVID-19 from this GitHub repository: “UID_ISO_FIPS_LookUp_Table”
+and “time_series_covid19_confirmed_global”. Save both data locally (5%)
+- downloaded both from the repository and added them to my own repository, above
+- committed this change 
+
+merge the two datasets and create a long version of the data. Save both long and wide data locally
+(20%)
+
+read in the datasets
+```{r}
+UIDs <- read.csv("C:/Users/smcnair1/Desktop/RStudio-MWF-repo/UID_ISO_FIPS_LookUp_Table.csv")
+global_covid <- read.csv("C:/Users/smcnair1/Desktop/RStudio-MWF-repo/time_series_covid19_confirmed_global.csv")
+```
+
+merge the datasets based on lat
+```{r}
+merged_df <- merge(x = UIDs, y = global_covid, by = "Lat", all = TRUE)
+```
+
+make long df
+```{r}
+merged_df_longer <- merged_df %>%
+  pivot_longer(
+    cols = starts_with("X"), 
+    names_to = "XTime",
+    values_to = "XVal")
+```
+
+save long and wide locally
+```{r}
+save(merged_df, file = "C:/Users/smcnair1/Desktop/RStudio-MWF-repo/wide_data.RData")
+save(merged_df_longer, file = "C:/Users/smcnair1/Desktop/RStudio-MWF-repo/long_data.RData")
+```
+
+
+create three graphs using ggplot and save them (10%):
+i) overall change in time of log number of cases
+ii) change in time of log number of cases by country
+iii) change in time by country of rate of infection per 100,000 cases
+
+use the README file to write a mini-report (10%). 
+It should include:
+a. description of the project (what you aim to do, where you got the data from, etc.)
+b. explain the organization of the repo (folder structure, where they can find the data and scripts,
+what were the steps in creating the report)
+c. main findings where you include the three graphs and a sentence or two on their interpretation
+d. session info to help with reproducibility
+
+presentation (10%). Clear structure of the folders, at least three commits with appropriate comments,
+well formatted README and graphs
+
+Keep you repositories (for tasks 2 and 3) private. For your grading you will invite the teacher
+(@alex-cernat) to be collaborators to your repository. In that way we can mark your work.
+1
