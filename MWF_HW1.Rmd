@@ -13,6 +13,7 @@ necessary packages
 ```{r}
 require(dplyr)
 require(tidyr)
+require(ggplot2)
 ```
 
 
@@ -79,8 +80,22 @@ save(merged_df_longer, file = "C:/Users/smcnair1/Desktop/RStudio-MWF-repo/long_d
 
 create three graphs using ggplot and save them (10%):
 i) overall change in time of log number of cases
+#fix later need time to be numeric
+```{r}
+ggplot(merged_df_longer, aes(XVal, XTime))
+```
+
+
 ii) change in time of log number of cases by country
+```{r}
+
+```
+
 iii) change in time by country of rate of infection per 100,000 cases
+```{r}
+
+```
+
 
 use the README file to write a mini-report (10%). 
 It should include:
