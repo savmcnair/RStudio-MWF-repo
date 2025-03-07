@@ -53,8 +53,8 @@ merge the two datasets and create a long version of the data. Save both long and
 
 read in the datasets
 ```{r}
-UIDs <- read.csv("C:/Users/smcnair1/Desktop/RStudio-MWF-repo/data/UID_ISO_FIPS_LookUp_Table.csv")
-global_covid <- read.csv("C:/Users/smcnair1/Desktop/RStudio-MWF-repo/data/time_series_covid19_confirmed_global.csv")
+UIDs <- read.csv("C:/Users/smcnair1/Desktop/RStudio-MWF-repo/UID_ISO_FIPS_LookUp_Table.csv")
+global_covid <- read.csv("C:/Users/smcnair1/Desktop/RStudio-MWF-repo/time_series_covid19_confirmed_global.csv")
 ```
 
 merge the datasets based on lat
@@ -73,8 +73,8 @@ merged_df_longer <- merged_df %>%
 
 save long and wide locally
 ```{r}
-save(merged_df, file = "C:/Users/smcnair1/Desktop/RStudio-MWF-repo/rdata_outputs/wide_data.RData")
-save(merged_df_longer, file = "C:/Users/smcnair1/Desktop/RStudio-MWF-repo/rdata_outputs/long_data.RData")
+save(merged_df, file = "C:/Users/smcnair1/Desktop/RStudio-MWF-repo/wide_data.RData")
+save(merged_df_longer, file = "C:/Users/smcnair1/Desktop/RStudio-MWF-repo/long_data.RData")
 ```
 
 
@@ -120,7 +120,7 @@ ggplot(average_log_X_by_date, aes(x = numeric_time, y = avg_log_X)) +
 
 save out plot
 ```{r}
-ggsave(path = "plots", filename = "overall_change_log_cases.png", width = 8, height = 6)
+ggsave("overall_change_log_cases.png", width = 8, height = 6)
 ```
 
 
@@ -148,7 +148,7 @@ ggplot(group_country, aes(x = numeric_time, y = LogX, color = Country_Region)) +
 
 save out plot
 ```{r}
-ggsave(path = "plots", filename = "change_log_cases_by_country.png", width = 8, height = 6)
+ggsave("change_log_cases_by_country.png", width = 8, height = 6)
 ```
 
 
@@ -177,7 +177,7 @@ ggplot(merged_df_longer, aes(x = XVal, y = infection_rate_100k, color = Country_
 
 save out plot
 ```{r}
-ggsave(path = "plots", filename = "infection_rate_per_100k_by_country.png", width = 8, height = 6)
+ggsave("infection_rate_per_100k_by_country.png", width = 8, height = 6)
 ```
 
 
@@ -188,13 +188,6 @@ b. explain the organization of the repo (folder structure, where they can find t
 what were the steps in creating the report)
 c. main findings where you include the three graphs and a sentence or two on their interpretation
 d. session info to help with reproducibility
-
-pull session info
-```{r}
-sI <- sessionInfo()
-print(sI)
-```
-
 
 presentation (10%). Clear structure of the folders, at least three commits with appropriate comments,
 well formatted README and graphs
