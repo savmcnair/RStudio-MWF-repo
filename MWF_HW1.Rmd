@@ -82,18 +82,102 @@ create three graphs using ggplot and save them (10%):
 i) overall change in time of log number of cases
 #fix later need time to be numeric
 ```{r}
-ggplot(merged_df_longer, aes(XVal, XTime))
+library(lubridate)
+```
+
+transform time - remove x in Xtime, convert to date format, convert to numeric of number of days since 2020-01-21
+```{r}
+merged_df_longer$XTime <- gsub("^X", "", merged_df_longer$XTime)
+merged_df_longer$XTime <- as.Date(merged_df_longer$XTime, format = "%m.%d.%y")
+merged_df_longer$numeric_time <- as.numeric(merged_df_longer$XTime - as.Date("2020-01-21"))
+```
+
+transform # of cases to log
+```{r}
+merged_df_longer$LogX <- log(merged_df_longer$XVal + 1)
+```
+
+group and avg by date
+```{r}
+average_log_X_by_date <- merged_df_longer %>%
+  group_by(numeric_time) %>%
+  summarise(avg_log_X = mean(LogX, na.rm = TRUE))
+```
+
+
+```{r}
+ggplot(average_log_X_by_date, aes(x = numeric_time, y = avg_log_X)) +
+  geom_line() +  
+  geom_point() +  
+  labs(
+    title = "Overall Change in Log Number of Cases Over Time",
+    x = "Time",
+    y = "Log Number of Cases"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+save out plot
+```{r}
+ggsave("overall_change_log_cases.png", width = 8, height = 6)
 ```
 
 
 ii) change in time of log number of cases by country
 ```{r}
+group_country <- merged_df_longer %>%
+  group_by(numeric_time) %>%
+  group_by(Country_Region) 
+```
+
+```{r}
+ggplot(group_country, aes(x = numeric_time, y = LogX, color = Country_Region)) +
+  geom_line() +
+  geom_point() +
+  labs(
+    title = "Change in Log Number of Cases Over Time by Country",
+    x = "Time",
+    y = "Log Number of Cases",
+    color = "Country"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        legend.position = "none")
+```
+
+save out plot
+```{r}
+ggsave("change_log_cases_by_country.png", width = 8, height = 6)
+```
+
+
+iii) change in time by country of rate of infection per 100,000 cases
+transformations
+```{r}
+merged_df_longer$infection_rate_100k <- (merged_df_longer$XVal / merged_df_longer$Population) * 100000
+```
+
+create plot
+```{r}
+ggplot(merged_df_longer, aes(x = XVal, y = infection_rate_100k, color = Country_Region)) +
+  geom_line() +
+  geom_point() +
+  labs(
+    title = "Change in Infection Rate per 100,000 Cases, Over Time and by Country",
+    x = "Time",
+    y = "Infection Rate per 100,000",
+    color = "Country"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        legend.position = "none")
 
 ```
 
-iii) change in time by country of rate of infection per 100,000 cases
+save out plot
 ```{r}
-
+ggsave("infection_rate_per_100k_by_country.png", width = 8, height = 6)
 ```
 
 
