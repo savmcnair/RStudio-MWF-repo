@@ -3,6 +3,7 @@ Repo for modern workflows in data science
 
 use the README file to write a mini-report (10%). 
 It should include:
+
 **a. description of the project (what you aim to do, where you got the data from, etc.)**
 This project will aim to extract/transform, explore and visualize data about COVID 19 cases by location from the years 2020 to 2023. This data was extracted from the JHU record of confirmed number of cases by day for each country/region combination. Two datasets from this repository were merged by latitude for analyses, “UID_ISO_FIPS_LookUp_Table” and “time_series_covid19_confirmed_global”. 
 
@@ -26,6 +27,7 @@ The steps taken for creating this report were as follows:
 4. Organize folder structure and update the file paths to pull from/output data and plots to reflect this.
 
 **c. main findings where you include the three graphs and a sentence or two on their interpretation**
+
 We created 3 plots in this script. Here are each and my interpretation of each graph: 
 
 1. Overall Change in Log Number of Cases Over Time: The overall log number of cases increases over time. This trend begins very steep and then plateaus out over time. 
@@ -33,6 +35,7 @@ We created 3 plots in this script. Here are each and my interpretation of each g
 3. Change in Infection Rate per 100,000 Cases, Over Time and by Country: This is a very interesting graph, As it shows that the infection rate per 100000 is linear for each country. The change in rate of each country is linear, and the steepness of each rate is also specific to each country, with some being very steep and others being fairly flat.
 
 **d. session info to help with reproducibility**
+
 Below is the session info for this R Markdown script, the packages needed, dependencies, and Rversion, platform, and OS so one can reproduce the use of this script exactly: 
 
 R version 4.3.1 (2023-06-16 ucrt)
